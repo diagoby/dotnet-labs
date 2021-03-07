@@ -159,9 +159,9 @@ namespace Lab1
 			// 
 			this.pboxTask.Image = global::Lab1.Properties.Resources.Task;
 			this.pboxTask.InitialImage = ((System.Drawing.Image)(resources.GetObject("pboxTask.InitialImage")));
-			this.pboxTask.Location = new System.Drawing.Point(12, 29);
+			this.pboxTask.Location = new System.Drawing.Point(23, 46);
 			this.pboxTask.Name = "pboxTask";
-			this.pboxTask.Size = new System.Drawing.Size(678, 81);
+			this.pboxTask.Size = new System.Drawing.Size(653, 81);
 			this.pboxTask.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pboxTask.TabIndex = 3;
 			this.pboxTask.TabStop = false;
@@ -169,17 +169,17 @@ namespace Lab1
 			// tboxArrA
 			// 
 			this.tboxArrA.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.tboxArrA.Location = new System.Drawing.Point(12, 144);
+			this.tboxArrA.Location = new System.Drawing.Point(23, 153);
 			this.tboxArrA.Name = "tboxArrA";
+			this.tboxArrA.PlaceholderText = "Enter list of numbers...";
 			this.tboxArrA.Size = new System.Drawing.Size(598, 29);
 			this.tboxArrA.TabIndex = 4;
 			this.tboxArrA.TextChanged += new System.EventHandler(this.tboxArrA_TextChanged);
-			this.tboxArrA.Validating += new System.ComponentModel.CancelEventHandler(this.tboxArrA_Validating);
 			// 
 			// textBox1
 			// 
 			this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.textBox1.Location = new System.Drawing.Point(12, 211);
+			this.textBox1.Location = new System.Drawing.Point(23, 247);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(598, 29);
 			this.textBox1.TabIndex = 5;

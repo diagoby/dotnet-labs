@@ -17,7 +17,7 @@ namespace Lab1
 		private const string NUBMERS_LIST_PATTERN = "^(-?\\d+|\\s|,)*$";
 		private List<int> bArr = new();
 
-        private List<int> aArr = new();
+        private int[] aArr;
 
         public MainForm()
         {
@@ -32,14 +32,10 @@ namespace Lab1
 
 			if(IsArrayStringValid(tboxArrA.Text))
 			{
-				/*aArr = Regex.Split(tboxArrA.Text, ",?\\s").Select(int.Parse).ToList();*/
-				IEnumerable<int> enumerable = Regex.Split(tboxArrA.Text, ",?\\s*")
+				aArr = Regex.Split(tboxArrA.Text, "\\D+")
 					.Where(token => !string.IsNullOrWhiteSpace(token))
-					.Select(int.Parse);
-
-				aArr = new List<int>(enumerable);
-
-				Debug.WriteLine(aArr.ToString());
+					.Select(int.Parse)
+					.ToArray();
 			}
 		}
 

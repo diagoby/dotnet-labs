@@ -60,6 +60,7 @@ namespace Lab1
 		private int[] NumbersStringToArray(string arr) => Regex
 			.Split(tboxArrB.Text, NUBMERS_LIST_SEPARATOR_PATTERN)
 			.Where(token => !string.IsNullOrWhiteSpace(token))
+			.Where(token => int.TryParse(token, out int _))
 			.Select(int.Parse)
 			.ToArray();
 

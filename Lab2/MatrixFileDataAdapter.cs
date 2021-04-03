@@ -26,9 +26,15 @@ namespace Lab2
             DataTable matrixTable = new DataTable();
             int[][] matrix = StringToMatrix(ReadMatrixString());
 
+            foreach (var _col in matrix)
+            {
+                matrixTable.Columns.Add();
+            }
+
             foreach (var row in matrix)
             {
-                matrixTable.Rows.Add(row);
+                string[] stringRow = row.Select(num => num.ToString()).ToArray();
+                matrixTable.Rows.Add(stringRow);
             }
 
             dataSet.Tables.Add(matrixTable);

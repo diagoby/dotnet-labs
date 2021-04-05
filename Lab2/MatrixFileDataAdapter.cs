@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Lab2
 {
@@ -14,10 +11,21 @@ namespace Lab2
         private const string MATRIX_LINES_SEPARATOR_PATTERN = "\r\n";
         private const string MATRIX_LINE_SEPARATOR_PATTERN = "[^\\d-]+";
 
-        private const string FILE_NAME = "matrix.txt";
+        public string FilePath { get; set; }
 
-        public MissingMappingAction MissingMappingAction { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public MissingSchemaAction MissingSchemaAction { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public MatrixFileDataAdapter(string filePath)
+        {
+            FilePath = filePath;
+        }
+
+        public MissingMappingAction MissingMappingAction { 
+            get => throw new NotImplementedException(); 
+            set => throw new NotImplementedException(); 
+        }
+        public MissingSchemaAction MissingSchemaAction { 
+            get => throw new NotImplementedException(); 
+            set => throw new NotImplementedException(); 
+        }
 
         public ITableMappingCollection TableMappings => throw new NotImplementedException();
 
@@ -25,6 +33,13 @@ namespace Lab2
         {
             DataTable matrixTable = new DataTable();
             int[][] matrix = StringToMatrix(ReadMatrixString());
+
+            if (!IsMatrixValid(matrix))
+            {
+                throw new Exception(
+                    "It should be a valid square matrix of integers"
+                );
+            }
 
             foreach (var _col in matrix)
             {
@@ -57,26 +72,9 @@ namespace Lab2
             throw new NotImplementedException();
         }
 
-        public async Task WriteFileAsync()
-        {
-            string path = Path.Combine(Environment.CurrentDirectory, FILE_NAME);
-
-            using StreamWriter writer = new StreamWriter(path);
-
-            await writer.WriteLineAsync("Hello, Alex");
-        }
-
-        public async Task<string> ReadFileAsync()
-        {
-            string path = Path.Combine(Environment.CurrentDirectory, FILE_NAME);
-            using StreamReader reader = new StreamReader(path);
-            return await reader.ReadToEndAsync();
-        }
-
         public string ReadMatrixString()
         {
-            string path = Path.Combine(Environment.CurrentDirectory, FILE_NAME);
-            using StreamReader reader = new StreamReader(path);
+            using StreamReader reader = new StreamReader(FilePath);
             return reader.ReadToEnd();
         }
 
@@ -91,5 +89,8 @@ namespace Lab2
             .Where(token => int.TryParse(token, out int _))
             .Select(int.Parse)
             .ToArray();
+
+        private bool IsMatrixValid(int[][] matrix) => !matrix
+            .Any(row => row.Length != matrix.Length);
     }
 }

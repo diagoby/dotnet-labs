@@ -20,15 +20,44 @@ namespace Lab2
             InitializeComponent();
         }
 
-        private void frmMain_Load(object sender, EventArgs e)
+        private void frmMain_Load(object sender, EventArgs e) 
         {
-            DataSet dataSet = new DataSet();
-            MatrixFileDataAdapter dataAdapter = new MatrixFileDataAdapter();
-            dataAdapter.Fill(dataSet);
-
-            DataView dataView = new DataView(dataSet.Tables[0]);
+            DataView dataView = GetMatrixDataView();
             bindsrcMatrix.DataSource = dataView;
             dtgridvMatrix.DataSource = bindsrcMatrix;
+        }
+
+        private DataView GetMatrixDataView()
+        {
+            DataSet dataSet = new DataSet();
+
+            var dataAdapter = new MatrixFileDataAdapter(GetFilePath());
+            try
+            {
+                dataAdapter.Fill(dataSet);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+                return GetMatrixDataView();
+            }
+
+            return new DataView(dataSet.Tables[0]);
+        }
+
+        private string GetFilePath()
+        {
+            using OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Text files (*.txt)|*.txt";
+            fileDialog.CheckFileExists = true;
+
+            if(fileDialog.ShowDialog() != DialogResult.OK)
+            {
+                return GetFilePath();
+            }
+
+            return fileDialog.FileName;
         }
     }
 }

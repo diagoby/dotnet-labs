@@ -40,10 +40,10 @@ namespace Lab2
             // 
             this.dtgridvMatrix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgridvMatrix.ColumnHeadersVisible = false;
-            this.dtgridvMatrix.Location = new System.Drawing.Point(134, 76);
+            this.dtgridvMatrix.Location = new System.Drawing.Point(29, 29);
             this.dtgridvMatrix.Name = "dtgridvMatrix";
             this.dtgridvMatrix.RowTemplate.Height = 25;
-            this.dtgridvMatrix.Size = new System.Drawing.Size(330, 316);
+            this.dtgridvMatrix.Size = new System.Drawing.Size(555, 417);
             this.dtgridvMatrix.TabIndex = 0;
             // 
             // frmMain

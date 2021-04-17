@@ -8,6 +8,9 @@ namespace Lab2
 {
     class MatrixFileDataAdapter : IDataAdapter
     {
+        private const string MATRIX_LINES_SEPARATOR = "\r\n";
+        private const string MATRIX_LINE_SEPARATOR = ", ";
+
         private const string MATRIX_LINES_SEPARATOR_PATTERN = "\r\n";
         private const string MATRIX_LINE_SEPARATOR_PATTERN = "[^\\d-]+";
 
@@ -32,7 +35,7 @@ namespace Lab2
         public int Fill(DataSet dataSet)
         {
             DataTable matrixTable = new DataTable();
-            int[][] matrix = StringToMatrix(ReadMatrixString());
+            int[][] matrix = ReadMatrixFromFile();
 
             if (!IsMatrixValid(matrix))
             {
@@ -56,7 +59,6 @@ namespace Lab2
 
             return matrix.Length;
         }
-
         public DataTable[] FillSchema(DataSet dataSet, SchemaType schemaType)
         {
             throw new NotImplementedException();
@@ -69,21 +71,50 @@ namespace Lab2
 
         public int Update(DataSet dataSet)
         {
-            throw new NotImplementedException();
+            DataTable table = dataSet.Tables[0];
+
+            int [][] matrix = table.AsEnumerable()
+                .Select(row => row.ItemArray
+                    .Where(item => item != DBNull.Value)
+                    .Select(item => int.Parse((string) item))
+                    .ToArray())
+                .ToArray();
+
+            if(!IsMatrixValid(matrix))
+            {
+                throw new Exception(
+                    "All cells should be filled with integers"
+                );
+            }
+
+            WriteMatrixToFile(matrix);
+
+            return matrix.Length;
         }
 
-        public string ReadMatrixString()
+        public int[][] ReadMatrixFromFile()
         {
             using StreamReader reader = new StreamReader(FilePath);
-            return reader.ReadToEnd();
+            return StringToMatrix(reader.ReadToEnd());
+        }
+
+        public void WriteMatrixToFile(int [][] matrix)
+        {
+            using StreamWriter writer = new StreamWriter(FilePath);
+            writer.Write(MatrixToString(matrix));
         }
 
         private int[][] StringToMatrix(string matrix) => Regex
             .Split(matrix, MATRIX_LINES_SEPARATOR_PATTERN)
-            .Select(NumbersStringToArray)
+            .Select(StringToArray)
             .ToArray();
 
-        private int[] NumbersStringToArray(string arr) => Regex
+        private string MatrixToString(int[][] matrix) => string
+            .Join(MATRIX_LINES_SEPARATOR, matrix.Select(ArrayToString));
+
+        private string ArrayToString(int[] arr) => string.Join(MATRIX_LINE_SEPARATOR, arr);
+
+        private int[] StringToArray(string arr) => Regex
             .Split(arr, MATRIX_LINE_SEPARATOR_PATTERN)
             .Where(token => !string.IsNullOrWhiteSpace(token))
             .Where(token => int.TryParse(token, out int _))

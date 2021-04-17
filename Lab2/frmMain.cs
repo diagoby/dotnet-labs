@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Lab2
@@ -22,12 +13,20 @@ namespace Lab2
 
         private void frmMain_Load(object sender, EventArgs e) 
         {
-            DataView dataView = GetMatrixDataView();
-            bindsrcMatrix.DataSource = dataView;
+            DataTable dataTable = ReadMatrixDataTable();
+            bindsrcMatrix.DataSource = dataTable;
             dtgridvMatrix.DataSource = bindsrcMatrix;
         }
 
-        private DataView GetMatrixDataView()
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            bindsrcMatrix.EndEdit();
+
+            DataTable dataTable = (DataTable) bindsrcMatrix.DataSource;
+            WriteMatrixDataTable(dataTable);
+        }
+
+        private DataTable ReadMatrixDataTable()
         {
             DataSet dataSet = new DataSet();
 
@@ -40,10 +39,25 @@ namespace Lab2
             {
                 MessageBox.Show(ex.Message);
 
-                return GetMatrixDataView();
+                return ReadMatrixDataTable();
             }
 
-            return new DataView(dataSet.Tables[0]);
+            return dataSet.Tables[0];
+        }
+
+        private void WriteMatrixDataTable(DataTable table)
+        {
+            var dataAdapter = new MatrixFileDataAdapter(GetFilePath());
+            try
+            {
+                dataAdapter.Update(table.DataSet);
+
+                MessageBox.Show("Saved successfully");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private string GetFilePath()

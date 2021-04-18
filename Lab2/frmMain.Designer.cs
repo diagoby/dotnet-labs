@@ -46,6 +46,7 @@ namespace Lab2
             this.dtgridvMatrix.RowTemplate.Height = 25;
             this.dtgridvMatrix.Size = new System.Drawing.Size(555, 417);
             this.dtgridvMatrix.TabIndex = 0;
+            this.dtgridvMatrix.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgridvMatrix_CellValueChanged);
             // 
             // btnSave
             // 

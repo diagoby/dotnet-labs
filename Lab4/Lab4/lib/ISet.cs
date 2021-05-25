@@ -2,7 +2,7 @@
 
 namespace Lab4.lib
 {
-    interface ISet<T>
+    public interface ISet<T>
     {
         int Count { get; }
         bool IsSingleTonSet { get; }

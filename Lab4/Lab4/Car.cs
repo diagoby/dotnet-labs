@@ -2,7 +2,7 @@
 
 namespace Lab4
 {
-    class Car
+    public class Car
     {
         public string Name { get; set; }
         public int Year { get; set; }

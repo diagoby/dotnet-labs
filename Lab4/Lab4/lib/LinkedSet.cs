@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab4.lib
 {
-    class LinkedSet<T> : AbstractSet<T>
+    public class LinkedSet<T> : AbstractSet<T>
     {
         private Node Head;
 

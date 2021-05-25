@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Lab4.lib
 {
-    abstract class AbstractSet<T> : ISet<T>, IEnumerable<T>, IEquatable<AbstractSet<T>>, ICloneable
+    public abstract class AbstractSet<T> : ISet<T>, IEnumerable<T>, IEquatable<AbstractSet<T>>, ICloneable
     {
         private int _count = 0;
         public int Count 

@@ -1,6 +1,6 @@
 ﻿namespace Lab4.lib
 {
-    static class LinkedSetExtension
+    public static class LinkedSetExtension
     {
         public static void CopyTo<T>(this LinkedSet<T> set, T[] arr, int index = 0){
             int i = index < 0 ? -1 : index - 1;

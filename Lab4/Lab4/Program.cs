@@ -8,20 +8,30 @@ namespace Lab4
         static void Main(string[] args)
         {
             LinkedSet<int> set1 = new LinkedSet<int>(new[] { 2, 3, 4 });
-            LinkedSet<int> set2 = LinkedSet<int>.Of(new[] { 2, 3 });
-            LinkedSet<int> set3 = new LinkedSet<int>(new[] { -1 });
+            LinkedSet<int> set2 = new LinkedSet<int>(new[] { 2, 3, 4 });
 
-            bool modified = set3.AddAll(new[] { -1 });
+            Console.WriteLine(set1.Equals(set2));
 
-            int[] arr = new int[5];
-            set1.CopyTo(arr, -5);
+            //LinkedSet<int> set1 = new LinkedSet<int>(new[] { 2, 3, 4 });
+            //LinkedSet<int> clone = (LinkedSet<int>) set1.Clone();
 
-            Console.WriteLine(string.Join(", ", arr));
+            //Console.WriteLine(set1.Equals(clone));
 
-            set2.Add(4);
+            //LinkedSet<int> set1 = new LinkedSet<int>(new[] { 2, 3, 4 });
+            //LinkedSet<int> set2 = LinkedSet<int>.Of(new[] { 2, 3 });
+            //LinkedSet<int> set3 = new LinkedSet<int>(new[] { -1 });
 
-            Console.WriteLine($"{set1.GetHashCode()},\n{set2.GetHashCode()}");
-            Console.WriteLine(set1 - set2);
+            //bool modified = set3.AddAll(new[] { -1 });
+
+            //int[] arr = new int[5];
+            //set1.CopyTo(arr, -5);
+
+            //Console.WriteLine(string.Join(", ", arr));
+
+            //set2.Add(4);
+
+            //Console.WriteLine($"{set1.GetHashCode()},\n{set2.GetHashCode()}");
+            //Console.WriteLine(set1 - set2);
         }
     }
 }

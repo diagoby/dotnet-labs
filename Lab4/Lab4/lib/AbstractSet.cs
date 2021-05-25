@@ -33,28 +33,14 @@ namespace Lab4.lib
 
         public abstract IEnumerator<T> GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public bool Equals(AbstractSet<T> other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            using var thisIterator = GetEnumerator();
-            using var otherIterator = other.GetEnumerator();
-
-            while (thisIterator.MoveNext() && otherIterator.MoveNext())
-            {
-                if (!thisIterator.Current.Equals(otherIterator.Current))
-                {
-                    return false;
-                }   
-            }
-
-            return true;
+            return Count == other.Count && Count == (this * other).Count;
         }
 
         public override bool Equals(object obj)
@@ -66,10 +52,7 @@ namespace Lab4.lib
             return Equals((AbstractSet<T>) obj);
         }
 
-        public override string ToString()
-        {
-            return string.Join(", ", this);
-        }
+        public override string ToString() => string.Join(", ", this);
 
         public override int GetHashCode()
         {

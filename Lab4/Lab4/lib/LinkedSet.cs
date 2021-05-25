@@ -15,10 +15,7 @@ namespace Lab4.lib
 
         public LinkedSet(IEnumerable<T> source)
         {
-            foreach (var item in source)
-            {
-                Add(item);
-            }
+            AddAll(source);
         }
 
         public override bool Add(T value)
@@ -32,6 +29,23 @@ namespace Lab4.lib
             }
 
             return false;
+        }
+
+        public override bool AddAll(IEnumerable<T> source)
+        {
+            bool changed = false;
+
+            foreach (var item in source)
+            {
+                bool added = Add(item);
+
+                if(!changed)
+                {
+                    changed = added;
+                }
+            }
+
+            return changed;
         }
 
         public override bool Remove(T value)

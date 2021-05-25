@@ -20,6 +20,7 @@ namespace Lab4.lib
         public bool IsSingleTonSet { get; private set; }
 
         public abstract bool Add(T value);
+        public abstract bool AddAll(IEnumerable<T> source);
         public abstract void Clear();
 
         public abstract bool Remove(T value);

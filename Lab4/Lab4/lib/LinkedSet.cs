@@ -89,22 +89,9 @@ namespace Lab4.lib
             return false;
         }
 
-        public override T Find(T value)
-        {
-            return Contains(value) ? value : default(T);
-        }
+        public override T Find(T value) => Contains(value) ? value : default(T);
 
-        public override object Clone()
-        {
-            var clone = new LinkedSet<T>();
-
-            foreach (var item in this)
-            {
-                clone.Add(item);
-            }
-
-            return clone;
-        }
+        public override object Clone() => new LinkedSet<T>(this);
 
         public override void Clear()
         {

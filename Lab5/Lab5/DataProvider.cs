@@ -65,24 +65,5 @@ namespace Lab5
                     total.Student
                 select total;
         }
-
-        //public static IEnumerable<string> GetgStudentsAverageMarks()
-        //{
-        //    var totals =
-        //        from session in SessionsProvider.GetAll()
-        //        group session by session.StudentCode into studentMarks
-        //        join student in StudentsProvider.GetAll()
-        //        on studentMarks.Key equals student.Code
-        //        select new
-        //        {
-        //            Student = student.LastName,
-        //            Rating = studentMarks.Average(s => s.TotalMark)
-        //        };
-
-        //    return
-        //        from total in totals
-        //        orderby total.Rating descending
-        //        select $"{total.Student} - {total.Rating}";
-        //}
     }
 }

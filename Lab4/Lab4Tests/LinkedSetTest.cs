@@ -162,5 +162,63 @@ namespace Lab4Tests
             set2 = null;
             Assert.IsFalse(set1.Equals(set2));
         }
+
+        [TestMethod]
+        public void LinkedSet_ShouldFindAnItem_IgnoringNulls()
+        {
+            Car car = new Car() { Name = "Audi", Year = 2013, Color = "Grey" };
+
+            LinkedSet<Car> cars = new LinkedSet<Car>(new Car[] { car });
+            Car foundCar = cars.Find(car);
+
+            Assert.IsNotNull(foundCar);
+            Assert.AreEqual(car, foundCar);
+        }
+
+        [TestMethod]
+        public void LinkedSet_ShouldMakeSetsUnion()
+        {
+            LinkedSet<int> set1 = new LinkedSet<int>(new int[] { 1, 2, 3 });
+            LinkedSet<int> set2 = new LinkedSet<int>(new int[] { 2, 3, 4, 5 });
+            LinkedSet<int> resultSet = new LinkedSet<int>(new int[] { 1, 2, 3, 4, 5 });
+
+            Assert.AreEqual(resultSet, set1 + set2);
+        }
+
+        [TestMethod]
+        public void LinkedSet_ShouldMakeSetsIntersection()
+        {
+            LinkedSet<int> set1 = new LinkedSet<int>(new int[] { 1, 2, 3 });
+            LinkedSet<int> set2 = new LinkedSet<int>(new int[] { 2, 3, 4, 5 });
+            LinkedSet<int> resultSet = new LinkedSet<int>(new int[] { 2, 3 });
+
+            Assert.AreEqual(resultSet, set2 * set1);
+        }
+
+        [TestMethod]
+        public void LinkedSet_ShouldMakeSetsDifference()
+        {
+            LinkedSet<int> set1 = new LinkedSet<int>(new int[] { 1, 2, 3 });
+            LinkedSet<int> set2 = new LinkedSet<int>(new int[] { 2, 3, 4, 5 });
+            LinkedSet<int> resultSet = new LinkedSet<int>(new int[] { 1 });
+
+            Assert.AreEqual(resultSet, set1 - set2);
+        }
+
+        [TestMethod]
+        public void LinkedSet_ShouldCopySetToAnArrayAtIndex()
+        {
+            Car car1 = new Car() { Name = "Audi", Year = 2013, Color = "Grey" };
+            Car car2 = new Car() { Name = "Honda", Year = 2010, Color = "Red" };
+            Car car3 = new Car() { Name = "Ford", Year = 2015, Color = "White" };
+
+            Car[] carsArr = new Car[5];
+            carsArr[0] = car1;
+
+            LinkedSet<Car> carsSet = new LinkedSet<Car>(new Car[] { car2, car3 });
+            carsSet.CopyTo(carsArr, 2);
+
+            CollectionAssert.AreEqual(carsArr, new Car[5] { car1, null, car3, car2, null });
+        }
     }
 }
